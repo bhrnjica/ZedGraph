@@ -27,6 +27,7 @@ using System.Drawing.Drawing2D;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
 using Timer = System.Timers.Timer;
 
 namespace ZedGraph.Demo
@@ -569,8 +570,11 @@ namespace ZedGraph.Demo
       using (Stream stream = File.Open(filePath, append ? FileMode.Append : FileMode.Create))
       {
         var binaryFormatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+#pragma warning disable SYSLIB0011
         binaryFormatter.Serialize(stream, objectToWrite);
-      }
+#pragma warning restore SYSLIB0011
+
+        }
     }
 
     /// <summary>
@@ -584,7 +588,10 @@ namespace ZedGraph.Demo
       using (Stream stream = File.Open(filePath, FileMode.Open))
       {
         var binaryFormatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+#pragma warning disable SYSLIB0011
         return (T)binaryFormatter.Deserialize(stream);
+#pragma warning restore SYSLIB0011
+
       }
     }
 

@@ -7,11 +7,12 @@ using System.Drawing.Imaging;
 using System.Drawing.Printing;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.Runtime.Serialization.Formatters.Soap;
+
 using System.IO;
 using GDIDB;
 using System.Diagnostics;
 using System.Threading;
+using System.Runtime.Serialization.Formatters.Soap;
 
 namespace ZedGraph.LibTest
 {
@@ -2314,7 +2315,9 @@ namespace ZedGraph.LibTest
 
 			if ( myPane != null )
 			{
-				mySerializer.Serialize( myWriter, myPane );
+#pragma warning disable SYSLIB0011
+               mySerializer.Serialize( myWriter, myPane );
+#pragma warning restore SYSLIB0011
 				MessageBox.Show( "Serialized output created" );
 			}
 
@@ -2339,8 +2342,9 @@ namespace ZedGraph.LibTest
 				myReader = new FileStream( fileName + ".soap", FileMode.Open,
 					FileAccess.Read, FileShare.Read );
 			}
-
-			myPane = (GraphPane) mySerializer.Deserialize( myReader );
+#pragma warning disable SYSLIB0011
+            myPane = (GraphPane) mySerializer.Deserialize( myReader );
+#pragma warning restore SYSLIB0011
 			Invalidate();
 
 			myReader.Close();
@@ -2357,7 +2361,9 @@ namespace ZedGraph.LibTest
 
 			if ( master != null )
 			{
-				mySerializer.Serialize( myWriter, master );
+#pragma warning disable SYSLIB0011
+                mySerializer.Serialize( myWriter, master );
+#pragma warning restore SYSLIB0011
 				MessageBox.Show( "Serialized output created" );
 			}
 
@@ -2370,8 +2376,9 @@ namespace ZedGraph.LibTest
 			BinaryFormatter mySerializer = new BinaryFormatter();
 			Stream myReader = new FileStream( "c:\\temp\\myFileName.bin", FileMode.Open,
 				FileAccess.Read, FileShare.Read );
-
-			master = (MasterPane) mySerializer.Deserialize( myReader );
+#pragma warning disable SYSLIB0011
+            master = (MasterPane) mySerializer.Deserialize( myReader );
+#pragma warning restore SYSLIB0011
 			Invalidate();
 
 			myReader.Close();

@@ -19,12 +19,12 @@
 
 
 using System;
-using System.Web.UI;
 using System.ComponentModel;
 using System.Collections;
 using System.ComponentModel.Design;
 using System.Drawing.Design;
 using System.Reflection;
+using Microsoft.AspNetCore.Mvc.TagHelpers;
 
 namespace ZedGraph.Web
 {

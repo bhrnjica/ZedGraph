@@ -13,11 +13,12 @@ using System.Drawing.Drawing2D;
 using System.Text;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.Runtime.Serialization.Formatters.Soap;
+
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using ZedGraph;
+using System.Runtime.Serialization.Formatters.Soap;
 
 namespace ZedGraph.ControlTest
 {
@@ -202,8 +203,10 @@ namespace ZedGraph.ControlTest
 				BinaryFormatter mySerializer = new BinaryFormatter();
 				Stream myWriter = new FileStream( fileName, FileMode.Create,
 						FileAccess.Write, FileShare.None );
+#pragma warning disable SYSLIB0011
+                mySerializer.Serialize( myWriter, z1.MasterPane );
+#pragma warning restore SYSLIB0011
 
-				mySerializer.Serialize( myWriter, z1.MasterPane );
 				//MessageBox.Show( "Serialized output created" );
 				myWriter.Close();
 			}
@@ -214,7 +217,7 @@ namespace ZedGraph.ControlTest
 		{
 			if ( z1 != null && !String.IsNullOrEmpty( fileName ) )
 			{
-				SoapFormatter mySerializer = new SoapFormatter();
+				var mySerializer = new SoapFormatter();
 				Stream myWriter = new FileStream( fileName, FileMode.Create,
 						FileAccess.Write, FileShare.None );
 
@@ -251,8 +254,9 @@ namespace ZedGraph.ControlTest
 				BinaryFormatter mySerializer = new BinaryFormatter();
 				Stream myReader = new FileStream( fileName, FileMode.Open,
 					FileAccess.Read, FileShare.Read );
-
-				MasterPane master = (MasterPane) mySerializer.Deserialize( myReader );
+#pragma warning disable SYSLIB0011
+                MasterPane master = (MasterPane) mySerializer.Deserialize( myReader );
+#pragma warning restore SYSLIB0011
 
 				myReader.Close();
 

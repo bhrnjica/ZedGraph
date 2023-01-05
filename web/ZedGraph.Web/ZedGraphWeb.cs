@@ -18,8 +18,6 @@
 //=============================================================================
 
 using System;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -28,8 +26,9 @@ using System.IO;
 using System.Collections;
 using System.Linq;
 using ZedGraph;
+using ZedGraph.Web;
 
-[assembly: TagPrefix( "ZedGraph", "zgw" )]
+//[assembly: TagPrefix( "ZedGraph", "zgw" )]
 
 namespace ZedGraph.Web
 {
@@ -1479,7 +1478,7 @@ namespace ZedGraph.Web
 				//Render on the fly
 				if ( this.CacheDuration > 0 )
 				{
-					System.Web.HttpContext context = System.Web.HttpContext.Current;
+					System.Web.HttpContext context = HttpContextHelper.Current;
 					System.Web.HttpCachePolicy policy = context.Response.Cache;
 					if ( policy != null )
 					{
@@ -1774,7 +1773,7 @@ namespace ZedGraph.Web
 		/// <param name="end"></param>
 		public void Draw( bool end )
 		{
-			System.Web.HttpContext ctx = System.Web.HttpContext.Current;
+			System.Web.HttpContext ctx = HttpContextHelper.Current;
 			if ( null == ctx )
 				throw new Exception( "missing context object" );
 			CreateGraph( ctx.Response.OutputStream, this.ImageFormat );
